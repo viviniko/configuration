@@ -1,0 +1,34 @@
+{
+    "name": "viviniko/configuration",
+    "description": "VIVINIKO Configuration Service Provider",
+	"keywords": ["viviniko", "configuration", "laravel"],
+	"homepage": "http://viviniko.com",
+	"license": "MIT",
+	"authors": [
+        {
+            "name": "viviniko",
+            "email": "viviniko.shop@gmail.com"
+        }
+    ],
+    "require": {
+        "php": ">=7.0",
+        "viviniko/support": "dev-master"
+    },
+    "autoload": {
+        "psr-0": {
+            "Viviniko\\Configuration": "src"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Viviniko\\Configuration\\ConfigurationServiceProvider"
+            ],
+            "aliases": {
+                "Variable": "Viviniko\\Configuration\\Facades\\Variable"
+            }
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}

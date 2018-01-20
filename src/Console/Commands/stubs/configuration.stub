@@ -1,0 +1,56 @@
+<?php
+
+use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
+
+class CreateConfigurationTable extends Migration
+{
+    /**
+     * @var string
+     */
+    protected $variablesTable;
+
+    /**
+     * CreateConfigurationTable constructor.
+     */
+    public function __construct()
+    {
+        $this->variablesTable = Config::get('configuration.variables_table');
+    }
+
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
+    public function up()
+    {
+        // Create table for storing variables
+        Schema::create($this->variablesTable, function (Blueprint $table) {
+            $table->increments('id');
+            $table->unsignedInteger('variable_id');
+            $table->string('variable_type');
+            $table->string('section', 32)->nullable();
+            $table->string('group', 32)->nullable();
+            $table->string('title', 32)->nullable();
+            $table->string('key', 64);
+            $table->text('value');
+            $table->text('raw_value');
+            $table->string('type', 20);
+
+            $table->unique(['variable_type', 'variable_id', 'key']);
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+        Schema::dropIfExists($this->variablesTable);
+    }
+}
