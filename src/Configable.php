@@ -20,7 +20,7 @@ trait Configable
         if (is_array($key)) {
             $map = static::$configableMap[$this->getTable()] ?? [];
             foreach ($key as $name => $value) {
-                Configable::set($this, $name, $value, $map[$name]['type'] ?? VariableType::T_STRING);
+                Configable::set($this, $name, $value, $map[$name]['type'] ?? VariableType::type($value));
             }
 
             return $this;
