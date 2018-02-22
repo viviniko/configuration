@@ -2,8 +2,9 @@
 
 namespace Viviniko\Configuration;
 
-use Viviniko\Configuration\Enums\VariableType;
 use Illuminate\Support\Facades\Config;
+use Viviniko\Configuration\Enums\VariableType;
+use Viviniko\Configuration\Facades\Configable as ConfigableFacade;
 
 trait Configable
 {
@@ -20,13 +21,13 @@ trait Configable
         if (is_array($key)) {
             $map = static::$configableMap[$this->getTable()] ?? [];
             foreach ($key as $name => $value) {
-                Configable::set($this, $name, $value, $map[$name]['type'] ?? VariableType::type($value));
+                ConfigableFacade::set($this, $name, $value, $map[$name]['type'] ?? VariableType::type($value));
             }
 
             return $this;
         }
 
-        return Configable::value($this, $key, $default);
+        return ConfigableFacade::value($this, $key, $default);
     }
 
     /**
