@@ -1,6 +1,6 @@
 <?php
 
-namespace Viviniko\Configuration\Services\Variable;
+namespace Viviniko\Configuration\Services\Configable;
 
 use Illuminate\Support\Collection as BaseCollection;
 

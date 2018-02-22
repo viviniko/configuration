@@ -4,7 +4,7 @@ namespace Viviniko\Configuration\Facades;
 
 use Illuminate\Support\Facades\Facade;
 
-class Variable extends Facade
+class Configable extends Facade
 {
 
     /**
@@ -14,7 +14,7 @@ class Variable extends Facade
      */
     protected static function getFacadeAccessor()
     {
-        return 'variable';
+        return 'configable';
     }
 
 }

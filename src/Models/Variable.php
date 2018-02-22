@@ -12,7 +12,7 @@ class Variable extends Model
     public $timestamps = false;
 
     protected $fillable = [
-        'variable_type', 'variable_id', 'section', 'group', 'title', 'key', 'value', 'raw_value', 'type'
+        'section', 'group', 'title', 'key', 'value', 'raw_value', 'type'
     ];
 
     public function setRawValueAttribute($value)
@@ -33,14 +33,6 @@ class Variable extends Model
     {
         $this->casts['value'] = $this->type;
         return $this->castAttribute('value', $value);
-    }
-
-    /**
-     * Get all of the owning configurable models.
-     */
-    public function Configurable()
-    {
-        return $this->morphTo('variable');
     }
 
     private function transformValue()

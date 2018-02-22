@@ -13,55 +13,35 @@ interface VariableService
     /**
      * Variable exists.
      *
-     * @param mixed $model
-     * @param null $key
+     * @param $key
      * @return bool
      */
-    public function has($model, $key = null);
+    public function has($key);
 
     /**
      * Get variable(s).
      *
-     * @param mixed $model
-     * @param null $key
+     * @param $key
      * @param null $default
      * @return mixed
      */
-    public function get($model, $key = null, $default = null);
+    public function get($key, $default = null);
 
     /**
      * Set variable.
      *
-     * @param mixed $model
      * @param $key
      * @param $value
      * @param string $type
      * @param array $options
      * @return $this
      */
-    public function set($model, $key, $value, $type = VariableType::T_STRING, array $options = []);
+    public function set($key, $value, $type = VariableType::T_STRING, array $options = []);
 
     /**
      * Delete variable.
      *
-     * @param $model
-     * @param null $key
-     */
-    public function delete($model, $key = null);
-
-    /**
-     * @param $model
-     * @return mixed
-     */
-    public function count($model);
-
-    /**
-     * Get variable value.
-     *
-     * @param mixed $model
      * @param $key
-     * @param null $default
-     * @return mixed
      */
-    public function value($model, $key, $default = null);
+    public function delete($key);
 }

@@ -1,19 +1,19 @@
 <?php
 
-namespace Viviniko\Configuration\Services\Variable;
+namespace Viviniko\Configuration\Services\Configable;
 
 use ArrayAccess;
-use Viviniko\Configuration\Contracts\VariableService;
-use Viviniko\Configuration\Enums\VariableType;
 use Countable;
 use Illuminate\Database\Eloquent\Model;
+use Viviniko\Configuration\Contracts\ConfigableService;
+use Viviniko\Configuration\Enums\VariableType;
 
 class Value implements ArrayAccess, Countable
 {
     /**
-     * @var VariableService
+     * @var ConfigableService
      */
-    protected $variableService;
+    protected $configableService;
 
     /**
      * @var Model
@@ -32,13 +32,13 @@ class Value implements ArrayAccess, Countable
 
     /**
      * Value constructor.
-     * @param VariableService $variableService
+     * @param ConfigableService $configableService
      * @param Model $model
      * @param null $default
      */
-    public function __construct(VariableService $variableService, Model $model, $default = null)
+    public function __construct(ConfigableService $configableService, Model $model, $default = null)
     {
-        $this->variableService = $variableService;
+        $this->configableService = $configableService;
         $this->model = $model;
         $this->default = $default;
     }
@@ -47,7 +47,7 @@ class Value implements ArrayAccess, Countable
     {
         return isset($this->values[$name]) ?
             $this->values[$name] :
-            ($this->values[$name] = $this->variableService->value($this->model, $name, $this->default));
+            ($this->values[$name] = $this->configableService->value($this->model, $name, $this->default));
     }
 
     /**
@@ -64,7 +64,7 @@ class Value implements ArrayAccess, Countable
      */
     public function offsetExists($offset)
     {
-        return $this->variableService->has($offset);
+        return $this->configableService->has($offset);
     }
 
     /**
@@ -95,7 +95,7 @@ class Value implements ArrayAccess, Countable
      */
     public function offsetSet($offset, $value)
     {
-        $this->variableService->set($this->model, $offset, $value, VariableType::type($value));
+        $this->configableService->set($this->model, $offset, $value, VariableType::type($value));
     }
 
     /**
@@ -109,7 +109,7 @@ class Value implements ArrayAccess, Countable
      */
     public function offsetUnset($offset)
     {
-        $this->variableService->delete($this->model, $offset);
+        $this->configableService->delete($this->model, $offset);
     }
 
     /**
@@ -123,6 +123,6 @@ class Value implements ArrayAccess, Countable
      */
     public function count()
     {
-        return $this->variableService->count($this->model);
+        return $this->configableService->count($this->model);
     }
 }

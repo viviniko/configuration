@@ -13,11 +13,17 @@ class CreateConfigurationTable extends Migration
     protected $variablesTable;
 
     /**
+     * @var string
+     */
+    protected $configablesTable;
+
+    /**
      * CreateConfigurationTable constructor.
      */
     public function __construct()
     {
         $this->variablesTable = Config::get('configuration.variables_table');
+        $this->configablesTable = Config::get('configuration.configables_table');
     }
 
     /**
@@ -28,10 +34,21 @@ class CreateConfigurationTable extends Migration
     public function up()
     {
         // Create table for storing variables
+        Schema::create($this->configablesTable, function (Blueprint $table) {
+            $table->increments('id');
+            $table->unsignedInteger('configable_id');
+            $table->string('configable_type');
+            $table->string('key', 64);
+            $table->text('value');
+            $table->text('raw_value');
+            $table->string('type', 20);
+
+            $table->unique(['configable_type', 'configable_id', 'key']);
+        });
+
+        // Create table for storing variables
         Schema::create($this->variablesTable, function (Blueprint $table) {
             $table->increments('id');
-            $table->unsignedInteger('variable_id');
-            $table->string('variable_type');
             $table->string('section', 32)->nullable();
             $table->string('group', 32)->nullable();
             $table->string('title', 32)->nullable();
@@ -40,7 +57,7 @@ class CreateConfigurationTable extends Migration
             $table->text('raw_value');
             $table->string('type', 20);
 
-            $table->unique(['variable_type', 'variable_id', 'key']);
+            $table->unique(['key']);
         });
     }
 
@@ -52,5 +69,6 @@ class CreateConfigurationTable extends Migration
     public function down()
     {
         Schema::dropIfExists($this->variablesTable);
+        Schema::dropIfExists($this->configablesTable);
     }
 }

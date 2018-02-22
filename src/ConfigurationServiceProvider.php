@@ -41,6 +41,8 @@ class ConfigurationServiceProvider extends BaseServiceProvider
 
         $this->registerRepositories();
 
+        $this->registerConfigableService();
+
         $this->registerVariableService();
 
         $this->registerCommands();
@@ -48,6 +50,11 @@ class ConfigurationServiceProvider extends BaseServiceProvider
 
     public function registerRepositories()
     {
+        $this->app->singleton(
+            \Viviniko\Configuration\Repositories\Configable\ConfigableRepository::class,
+            \Viviniko\Configuration\Repositories\Configable\EloquentConfigable::class
+        );
+
         $this->app->singleton(
             \Viviniko\Configuration\Repositories\Variable\VariableRepository::class,
             \Viviniko\Configuration\Repositories\Variable\EloquentVariable::class
@@ -71,12 +78,23 @@ class ConfigurationServiceProvider extends BaseServiceProvider
      *
      * @return void
      */
+    protected function registerConfigableService()
+    {
+        $this->app->singleton('configable', \Viviniko\Configuration\Services\Configable\ConfigableServiceImpl::class);
+
+        $this->app->alias('configable', \Viviniko\Configuration\Contracts\ConfigableService::class);
+    }
+
+    /**
+     * Register the configuration service provider.
+     *
+     * @return void
+     */
     protected function registerVariableService()
     {
-        $this->app->singleton(
-            \Viviniko\Configuration\Contracts\VariableService::class,
-            \Viviniko\Configuration\Services\Variable\VariableServiceImpl::class
-        );
+        $this->app->singleton('variable', \Viviniko\Configuration\Services\Variable\VariableServiceImpl::class);
+
+        $this->app->alias('variable', \Viviniko\Configuration\Contracts\VariableService::class);
     }
 
     /**
@@ -87,6 +105,9 @@ class ConfigurationServiceProvider extends BaseServiceProvider
     public function provides()
     {
         return [
+            'configable',
+            'variable',
+            \Viviniko\Configuration\Contracts\ConfigableService::class,
             \Viviniko\Configuration\Contracts\VariableService::class,
         ];
     }

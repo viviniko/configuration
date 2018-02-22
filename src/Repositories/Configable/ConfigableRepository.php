@@ -1,8 +1,8 @@
 <?php
 
-namespace Viviniko\Configuration\Repositories\Variable;
+namespace Viviniko\Configuration\Repositories\Configable;
 
-interface VariableRepository
+interface ConfigableRepository
 {
     /**
      * @param array $data
@@ -18,12 +18,14 @@ interface VariableRepository
     public function update($id, array $data);
 
     /**
-     * Find data by key
+     * Find data by field and value
      *
-     * @param $key
-     * @return mixed
+     * @param $column
+     * @param null $value
+     * @param array $columns
+     * @return \Illuminate\Database\Eloquent\Collection|static[]
      */
-    public function findByKey($key);
+    public function findBy($column, $value = null);
 
     /**
      * Variable is exists.
@@ -35,8 +37,14 @@ interface VariableRepository
     public function exists($column, $value = null);
 
     /**
-     * @param $key
+     * @param $where
      * @return mixed
      */
-    public function deleteByKey($key);
+    public function deleteBy($where);
+
+    /**
+     * @param $where
+     * @return mixed
+     */
+    public function count($where);
 }

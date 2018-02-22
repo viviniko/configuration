@@ -9,20 +9,18 @@ class EloquentVariable extends SimpleRepository implements VariableRepository
     protected $modelConfigKey = 'configuration.variable';
 
     /**
-     * @param $where
-     * @return mixed
+     * {@inheritdoc}
      */
-    public function deleteBy($where)
+    public function findByKey($key)
     {
-        return $this->createModel()->where($where)->delete();
+        return $this->createModel()->where('key', $key)->first();
     }
 
     /**
-     * @param $where
-     * @return mixed
+     * {@inheritdoc}
      */
-    public function count($where)
+    public function deleteByKey($key)
     {
-        return $this->createModel()->where($where)->count();
+        return $this->createModel()->where('key', $key)->delete();
     }
 }
