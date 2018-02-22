@@ -30,11 +30,11 @@ trait Configable
     }
 
     /**
-     * Boot the configurable trait for a model.
+     * Boot the configable trait for a model.
      *
      * @return void
      */
-    public static function bootConfigurable()
+    public static function bootConfigable()
     {
         static::deleted(function ($model) {
             $model->configables()->delete();
