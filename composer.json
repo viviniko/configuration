@@ -25,6 +25,7 @@
                 "Viviniko\\Configuration\\ConfigurationServiceProvider"
             ],
             "aliases": {
+                "Configable": "Viviniko\\Configuration\\Facades\\Configable",
                 "Variable": "Viviniko\\Configuration\\Facades\\Variable"
             }
         }
