@@ -43,7 +43,7 @@ class CreateConfigurationTable extends Migration
             $table->text('raw_value');
             $table->string('type', 20);
 
-            $table->unique(['configable_type', 'configable_id', 'key']);
+            $table->unique(['configable_type', 'configable_id', 'key'], 'configuration_configables_type_id_key_unique');
         });
 
         // Create table for storing variables
