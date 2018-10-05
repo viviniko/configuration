@@ -23,9 +23,9 @@ interface ConfigableRepository
      * @param $column
      * @param null $value
      * @param array $columns
-     * @return \Illuminate\Database\Eloquent\Collection|static[]
+     * @return \Illuminate\Database\Eloquent\Collection
      */
-    public function findBy($column, $value = null);
+    public function findAllBy($column, $value = null, $columns = ['*']);
 
     /**
      * Variable is exists.

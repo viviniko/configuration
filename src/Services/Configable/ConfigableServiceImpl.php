@@ -60,7 +60,7 @@ class ConfigableServiceImpl implements ConfigableService
         ] : $model;
 
         $configables = Cache::remember("configuration.configables?:{$where['configable_type']},{$where['configable_id']}", Config::get('cache.ttl', 10), function () use ($where) {
-            return $this->configables->findBy([
+            return $this->configables->findAllBy([
                 'configable_type' => $where['configable_type'],
                 'configable_id' => $where['configable_id'],
             ]);
