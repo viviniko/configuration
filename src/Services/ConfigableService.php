@@ -1,6 +1,6 @@
 <?php
 
-namespace Viviniko\Configuration\Contracts;
+namespace Viviniko\Configuration\Services;
 
 use Viviniko\Configuration\Enums\VariableType;
 

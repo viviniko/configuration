@@ -82,7 +82,7 @@ class ConfigurationServiceProvider extends BaseServiceProvider
     {
         $this->app->singleton('configable', \Viviniko\Configuration\Services\Configable\ConfigableServiceImpl::class);
 
-        $this->app->alias('configable', \Viviniko\Configuration\Contracts\ConfigableService::class);
+        $this->app->alias('configable', \Viviniko\Configuration\Services\ConfigableService::class);
     }
 
     /**
@@ -94,7 +94,7 @@ class ConfigurationServiceProvider extends BaseServiceProvider
     {
         $this->app->singleton('variable', \Viviniko\Configuration\Services\Variable\VariableServiceImpl::class);
 
-        $this->app->alias('variable', \Viviniko\Configuration\Contracts\VariableService::class);
+        $this->app->alias('variable', \Viviniko\Configuration\Services\VariableService::class);
     }
 
     /**
@@ -107,8 +107,8 @@ class ConfigurationServiceProvider extends BaseServiceProvider
         return [
             'configable',
             'variable',
-            \Viviniko\Configuration\Contracts\ConfigableService::class,
-            \Viviniko\Configuration\Contracts\VariableService::class,
+            \Viviniko\Configuration\Services\ConfigableService::class,
+            \Viviniko\Configuration\Services\VariableService::class,
         ];
     }
 }

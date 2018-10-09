@@ -2,18 +2,22 @@
 
 namespace Viviniko\Configuration\Repositories\Variable;
 
-use Viviniko\Repository\SimpleRepository;
+use Illuminate\Support\Facades\Config;
+use Viviniko\Repository\EloquentRepository;
 
-class EloquentVariable extends SimpleRepository implements VariableRepository
+class EloquentVariable extends EloquentRepository implements VariableRepository
 {
-    protected $modelConfigKey = 'configuration.variable';
+    public function __construct()
+    {
+        parent::__construct(Config::get('configuration.variable'));
+    }
 
     /**
      * {@inheritdoc}
      */
     public function findByKey($key)
     {
-        return $this->createModel()->where('key', $key)->first();
+        return $this->findBy('key', $key);
     }
 
     /**
@@ -21,6 +25,6 @@ class EloquentVariable extends SimpleRepository implements VariableRepository
      */
     public function deleteByKey($key)
     {
-        return $this->createModel()->where('key', $key)->delete();
+        return $this->where('key', $key)->delete();
     }
 }

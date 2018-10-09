@@ -2,11 +2,15 @@
 
 namespace Viviniko\Configuration\Repositories\Configable;
 
-use Viviniko\Repository\SimpleRepository;
+use Illuminate\Support\Facades\Config;
+use Viviniko\Repository\EloquentRepository;
 
-class EloquentConfigable extends SimpleRepository implements ConfigableRepository
+class EloquentConfigable extends EloquentRepository implements ConfigableRepository
 {
-    protected $modelConfigKey = 'configuration.configable';
+    public function __construct()
+    {
+        parent::__construct(Config::get('configuration.configable'));
+    }
 
     /**
      * @param $where
@@ -14,15 +18,6 @@ class EloquentConfigable extends SimpleRepository implements ConfigableRepositor
      */
     public function deleteBy($where)
     {
-        return $this->createModel()->where($where)->delete();
-    }
-
-    /**
-     * @param $where
-     * @return mixed
-     */
-    public function count($where)
-    {
-        return $this->createModel()->where($where)->count();
+        return $this->createQuery()->where($where)->delete();
     }
 }
