@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Str;
-use Viviniko\Configuration\Contracts\ConfigableService;
+use Viviniko\Configuration\Services\ConfigableService;
 use Viviniko\Configuration\Enums\VariableType;
 use Viviniko\Configuration\Repositories\Configable\ConfigableRepository;
 

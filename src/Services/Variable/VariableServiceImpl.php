@@ -3,7 +3,7 @@
 namespace Viviniko\Configuration\Services\Variable;
 
 use Illuminate\Support\Str;
-use Viviniko\Configuration\Contracts\VariableService;
+use Viviniko\Configuration\Services\VariableService;
 use Viviniko\Configuration\Enums\VariableType;
 use Viviniko\Configuration\Repositories\Variable\VariableRepository;
 
