@@ -11,13 +11,4 @@ class EloquentConfigable extends EloquentRepository implements ConfigableReposit
     {
         parent::__construct(Config::get('configuration.configable'));
     }
-
-    /**
-     * @param $where
-     * @return mixed
-     */
-    public function deleteBy($where)
-    {
-        return $this->createQuery()->where($where)->delete();
-    }
 }

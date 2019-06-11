@@ -44,7 +44,7 @@ class VariableServiceImpl implements VariableService
             $value = implode('.', $arr);
         }
 
-        return data_get($this->variables->findByKey($key), $value, $default);
+        return data_get($this->variables->findBy('key', $key), $value, $default);
     }
 
     /**
@@ -62,7 +62,7 @@ class VariableServiceImpl implements VariableService
 
         $data = array_merge($options, ['type' => $type, 'raw_value' => $value]);
 
-        if ($variable = $this->variables->findByKey($key)) {
+        if ($variable = $this->variables->find('key', $key)) {
             $this->variables->update($variable->id, $data);
         } else {
             $data['key'] = $key;
@@ -77,6 +77,7 @@ class VariableServiceImpl implements VariableService
      */
     public function delete($key)
     {
-        return $this->variables->deleteByKey($key);
+        $vairable = $variable = $this->variables->find('key', $key);
+        return $this->variables->delete($vairable->id);
     }
 }

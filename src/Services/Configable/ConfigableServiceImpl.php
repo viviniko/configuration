@@ -147,7 +147,9 @@ class ConfigableServiceImpl implements ConfigableService
             $where['key'] = $key;
         }
 
-        $this->configables->deleteBy($where);
+        $this->configables->findAllBy($where)->each(function($item) {
+            $this->configables->delete($item->id);
+        });
 
         $this->flushCache($model);
     }

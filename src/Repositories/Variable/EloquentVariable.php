@@ -11,20 +11,4 @@ class EloquentVariable extends EloquentRepository implements VariableRepository
     {
         parent::__construct(Config::get('configuration.variable'));
     }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function findByKey($key)
-    {
-        return $this->findBy('key', $key);
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function deleteByKey($key)
-    {
-        return $this->where('key', $key)->delete();
-    }
 }
